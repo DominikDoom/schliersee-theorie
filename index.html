@@ -1,1 +1,28 @@
-<h1>Hello World</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1,
+        maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <title>Hello World!</title>
+  <script src="lib/Cesium/Cesium.js"></script>
+  <style>
+      @import url(lib/Cesium/Widgets/widgets.css);
+      html, body, #cesiumContainer {
+          width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;
+      }
+  </style>
+</head>
+<body>
+  <div id="cesiumContainer"></div>
+  <script>
+    var viewer = new Cesium.Viewer('cesiumContainer', {
+        baseLayerPicker: false,
+        imageryProvider: new Cesium.BingMapsImageryProvider({
+                    url : 'http://dev.virtualearth.net'
+                })
+    });
+  </script>
+</body>
+</html>
