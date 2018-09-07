@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <!-- Use correct character set. -->
   <meta charset="utf-8">
@@ -8,18 +9,40 @@
   <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
   <title>Hello World!</title>
+  <script src="lib/jquery-3.3.1.min.js"></script>
+  <script src="util.js"></script>
   <script src="lib/Cesium/Cesium.js"></script>
   <style>
-      @import url(lib/Cesium/Widgets/widgets.css);
-      html, body, #cesiumContainer {
-          width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;
-      }
+    @import url(lib/Cesium/Widgets/widgets.css);
   </style>
+  <link rel="stylesheet" href="main.css">
 </head>
+
 <body>
+  <div class="header">
+
+  </div>
+  <div class="main">
+    <div class="parallax">
+      <div class="prl-bg1"></div> <!-- Parallax Image 1 -->
+      <div class="prl-cnt1"></div> <!-- Parallax Content 1 -->
+      <div class="prl-bg2"></div> <!-- Parallax Image 2 -->
+    </div>
+  </div>
+
+  <div class="mapNav">
+    <!-- Navigation elements to select different stages of the tour -->
+
+  </div>
+  <div class="mapSlcInfo">
+    <!-- Info display of the selected point (height, distance, etc) -->
+
+  </div>
   <div id="cesiumContainer"></div>
-  <script>
-    var viewer = new Cesium.Viewer('cesiumContainer');
-  </script>
+  <div id="debug">
+    <button id="saveCam">Extract current camera position</button>
+  </div>
 </body>
+<script src="map.js"></script>
+
 </html>
