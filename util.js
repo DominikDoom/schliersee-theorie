@@ -16,3 +16,33 @@ function download(data, filename, type) {
         }, 0); 
     }
 }
+
+// Scroll to top
+$(document).ready(function(){
+
+	// Der Button wird mit JavaScript erzeugt und vor dem Ende des body eingebunden.
+	var back_to_top_button = ['<a class="backToTop" href="#" onclick="return false;" style="display: none;">Zurück zum Seitenanfang</a>'].join("");
+	$("body").append(back_to_top_button)
+
+	// Der Button wird ausgeblendet
+	$(".backToTop").hide();
+
+	// Funktion für das Scroll-Verhalten
+	$(function () {
+		$(window).scroll(function () {
+			if ($(this).scrollTop() > 100) { // Wenn 100 Pixel gescrolled wurde
+				$('.backToTop').fadeIn();
+			} else {
+				$('.backToTop').fadeOut();
+			}
+		});
+
+		$('.backToTop').click(function () { // Klick auf den Button
+			$('body,html').animate({
+				scrollTop: 0
+			}, 800);
+			return false;
+		});
+	});
+
+});

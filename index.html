@@ -19,30 +19,34 @@
 </head>
 
 <body>
-  <div class="header">
-
-  </div>
-  <div class="main">
-    <div class="parallax">
-      <div class="prl-bg1"></div> <!-- Parallax Image 1 -->
-      <div class="prl-cnt1"></div> <!-- Parallax Content 1 -->
-      <div class="prl-bg2"></div> <!-- Parallax Image 2 -->
+  <div class="parallax">
+    <div class="prl-bg1">
+      <div class="caption">
+        <span class="title">OUTDOOR-KURS 2018</span>
+        <br>
+        <span class="subtitle">Alpenwanderung am Schliersee</span>
+      </div>
     </div>
   </div>
 
-  <div class="mapNav">
-    <!-- Navigation elements to select different stages of the tour -->
 
+  <!-- Grid Layout -->
+  <div class="grid-container">
+    <div class="mapNav">
+    </div>
+    <div class="mapSlcInfo">
+    </div>
+    <div class="mapContainer">
+      <div id="cesiumContainer">
+        <div id="debug">
+          <button id="saveCam">Extract current camera position</button>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="mapSlcInfo">
-    <!-- Info display of the selected point (height, distance, etc) -->
 
-  </div>
-  <div id="cesiumContainer"></div>
-  <div id="debug">
-    <button id="saveCam">Extract current camera position</button>
-  </div>
 </body>
+
 <script src="map.js"></script>
 
 </html>
