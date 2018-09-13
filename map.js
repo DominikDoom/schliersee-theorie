@@ -15,12 +15,55 @@ viewer.terrainProvider = terrainProvider;
 viewer.scene.globe.enableLighting = true;
 
 // Data Setup
-viewer.dataSources.add(Cesium.KmlDataSource.load('./data/kml/16.08.2018.kml',
-     {
-          camera: viewer.scene.camera,
-          canvas: viewer.scene.canvas
-     })
-);
+// TODO: Load previous days if they don't already exist
+$(document).on("click","#day1Button", function () {
+    $(this).addClass("selected");
+    $("#day2Button").removeClass("selected");
+    $("#day3Button").removeClass("selected");
+    $("#day4Button").removeClass("selected");
+    viewer.dataSources.add(Cesium.KmlDataSource.load('./data/kml/16.08.2018.kml',
+        {
+            camera: viewer.scene.camera,
+            canvas: viewer.scene.canvas
+        })
+    );
+});
+$(document).on("click","#day2Button", function () {
+    $(this).addClass("selected");
+    $("#day1Button").removeClass("selected");
+    $("#day3Button").removeClass("selected");
+    $("#day4Button").removeClass("selected");
+    viewer.dataSources.add(Cesium.KmlDataSource.load('./data/kml/17.08.2018.kml',
+        {
+            camera: viewer.scene.camera,
+            canvas: viewer.scene.canvas
+        })
+    );
+});
+$(document).on("click","#day3Button", function () {
+    $(this).addClass("selected");
+    $("#day1Button").removeClass("selected");
+    $("#day2Button").removeClass("selected");
+    $("#day4Button").removeClass("selected");
+    viewer.dataSources.add(Cesium.KmlDataSource.load('./data/kml/18.08.2018.kml',
+        {
+            camera: viewer.scene.camera,
+            canvas: viewer.scene.canvas
+        })
+    );
+});
+$(document).on("click","#day4Button", function () {
+    $(this).addClass("selected");
+    $("#day1Button").removeClass("selected");
+    $("#day2Button").removeClass("selected");
+    $("#day3Button").removeClass("selected");
+    viewer.dataSources.add(Cesium.KmlDataSource.load('./data/kml/19.08.2018.kml',
+        {
+            camera: viewer.scene.camera,
+            canvas: viewer.scene.canvas
+        })
+    );
+});
 
 // Camera
 // Read saved camera position
