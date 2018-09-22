@@ -19,7 +19,7 @@
     </TimeStamp>
     <Style id="track">
       <LineStyle>
-        <color>ffff0000</color>
+        <color>7f0000ff</color>
         <width>4</width>
       </LineStyle>
     </Style>

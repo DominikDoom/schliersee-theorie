@@ -105,6 +105,7 @@ h3 {
     width: 100%;
     justify-content: center;
     flex-direction: column;
+    cursor: pointer;
 }
 
 .mapSlcInfo {

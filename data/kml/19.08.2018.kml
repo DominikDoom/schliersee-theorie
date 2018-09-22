@@ -19,7 +19,7 @@
     </TimeStamp>
     <Style id="track">
       <LineStyle>
-        <color>ffff0000</color>
+        <color>7f0000ff</color>
         <width>4</width>
       </LineStyle>
     </Style>
@@ -32,7 +32,7 @@
       </gx:SimpleArrayField>
     </Schema>
     <Placemark id="tour">
-      <name>19.08.2018 08:39:09</name>
+      <name>19.08.2018</name>
       <description></description>
       <atom:author>
         <atom:name>Aufgezeichnet mit Geo Tracker für Android von Ilya Bogdanovich</atom:name>

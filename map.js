@@ -15,54 +15,65 @@ viewer.terrainProvider = terrainProvider;
 viewer.scene.globe.enableLighting = true;
 
 // Data Setup
-// TODO: Load previous days if they don't already exist
-$(document).on("click","#day1Button", function () {
+
+// Load all sources
+var data_day1 = Cesium.KmlDataSource.load('./data/kml/16.08.2018.kml', {
+    camera: viewer.scene.camera,
+    canvas: viewer.scene.canvas
+});
+var data_day2 = Cesium.KmlDataSource.load('./data/kml/17.08.2018.kml', {
+    camera: viewer.scene.camera,
+    canvas: viewer.scene.canvas
+});
+var data_day3 = Cesium.KmlDataSource.load('./data/kml/18.08.2018.kml', {
+    camera: viewer.scene.camera,
+    canvas: viewer.scene.canvas
+});
+var data_day4 = Cesium.KmlDataSource.load('./data/kml/19.08.2018.kml', {
+    camera: viewer.scene.camera,
+    canvas: viewer.scene.canvas
+});
+
+$("#day1Button").addClass("selected");
+viewer.dataSources.add(data_day1);
+
+$(document).on("click", "#day1Button", function () {
     $(this).addClass("selected");
     $("#day2Button").removeClass("selected");
     $("#day3Button").removeClass("selected");
     $("#day4Button").removeClass("selected");
-    viewer.dataSources.add(Cesium.KmlDataSource.load('./data/kml/16.08.2018.kml',
-        {
-            camera: viewer.scene.camera,
-            canvas: viewer.scene.canvas
-        })
-    );
+    viewer.dataSources.removeAll();
+    viewer.dataSources.add(data_day1);
 });
-$(document).on("click","#day2Button", function () {
+$(document).on("click", "#day2Button", function () {
     $(this).addClass("selected");
     $("#day1Button").removeClass("selected");
     $("#day3Button").removeClass("selected");
     $("#day4Button").removeClass("selected");
-    viewer.dataSources.add(Cesium.KmlDataSource.load('./data/kml/17.08.2018.kml',
-        {
-            camera: viewer.scene.camera,
-            canvas: viewer.scene.canvas
-        })
-    );
+    viewer.dataSources.removeAll();
+    viewer.dataSources.add(data_day1);
+    viewer.dataSources.add(data_day2);
 });
-$(document).on("click","#day3Button", function () {
+$(document).on("click", "#day3Button", function () {
     $(this).addClass("selected");
     $("#day1Button").removeClass("selected");
     $("#day2Button").removeClass("selected");
     $("#day4Button").removeClass("selected");
-    viewer.dataSources.add(Cesium.KmlDataSource.load('./data/kml/18.08.2018.kml',
-        {
-            camera: viewer.scene.camera,
-            canvas: viewer.scene.canvas
-        })
-    );
+    viewer.dataSources.removeAll();
+    viewer.dataSources.add(data_day1);
+    viewer.dataSources.add(data_day2);
+    viewer.dataSources.add(data_day3);
 });
-$(document).on("click","#day4Button", function () {
+$(document).on("click", "#day4Button", function () {
     $(this).addClass("selected");
     $("#day1Button").removeClass("selected");
     $("#day2Button").removeClass("selected");
     $("#day3Button").removeClass("selected");
-    viewer.dataSources.add(Cesium.KmlDataSource.load('./data/kml/19.08.2018.kml',
-        {
-            camera: viewer.scene.camera,
-            canvas: viewer.scene.canvas
-        })
-    );
+    viewer.dataSources.removeAll();
+    viewer.dataSources.add(data_day1);
+    viewer.dataSources.add(data_day2);
+    viewer.dataSources.add(data_day3);
+    viewer.dataSources.add(data_day4);
 });
 
 // Camera
