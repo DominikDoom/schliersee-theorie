@@ -77,8 +77,8 @@ h3 {
 .grid-container {
     display: grid;
     height: 100%;
-    grid-template-columns: 400px 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 500px 1fr;
+    grid-template-rows: 1fr 300px;
     grid-gap: 1px 1px;
     grid-template-areas: "mapNav mapContainer""mapSlcInfo mapContainer";
 }
@@ -130,4 +130,9 @@ h3 {
     position: absolute;
     top: 30px;
     left: 30px;
+}
+
+/* Hacky Stuff */
+.modebar-btn {
+    display: none;
 }

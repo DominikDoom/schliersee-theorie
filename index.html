@@ -12,6 +12,8 @@
   <script src="lib/jquery-3.3.1.min.js"></script>
   <script src="util.js"></script>
   <script src="lib/Cesium/Cesium.js"></script>
+  <script src="lib/plotlyjs-bundle.js"></script>
+  <script src="figure.js"></script>
   <style>
     @import url(lib/Cesium/Widgets/widgets.css);
   </style>
@@ -35,17 +37,62 @@
   <div class="grid-container">
     <div class="mapNav">
       <h2>Streckenwahl</h2>
-        <div class="mapNav-buttonBar hoverEffect">
-            <div class="mapNav-navButton" id="day1Button">Tag 1</div>
-            <div class="mapNav-navButton" id="day2Button">Tag 2</div>
-            <div class="mapNav-navButton" id="day3Button">Tag 3</div>
-            <div class="mapNav-navButton" id="day4Button">Tag 4</div>
-        </div>
+      <div class="mapNav-buttonBar hoverEffect">
+        <div class="mapNav-navButton" id="day1Button">Tag 1</div>
+        <div class="mapNav-navButton" id="day2Button">Tag 2</div>
+        <div class="mapNav-navButton" id="day3Button">Tag 3</div>
+        <div class="mapNav-navButton" id="day4Button">Tag 4</div>
+      </div>
       <div class="mapNav-tourHighlights">
+
 
       </div>
     </div>
     <div class="mapSlcInfo">
+      <div id="plotly" style="width: 500px; height: 300px;" class="plotly-graph-div"></div>
+      <script type="text/javascript">
+        (function () {
+          window.PLOTLYENV = {
+            'BASE_URL': 'https://plot.ly'
+          };
+
+          var gd = document.getElementById('plotly')
+          var resizeDebounce = null;
+
+          function resizePlot() {
+            var bb = gd.getBoundingClientRect();
+            Plotly.relayout(gd, {
+              width: bb.width,
+              height: bb.height
+            });
+          }
+
+          Plotly.plot(gd, {
+            data: figure.data,
+            layout: figure.layout,
+            frames: figure.frames,
+            config: {
+              "mapboxAccessToken": "pk.eyJ1IjoiY2hyaWRkeXAiLCJhIjoiY2lxMnVvdm5iMDA4dnhsbTQ5aHJzcGs0MyJ9.X9o_rzNLNesDxdra4neC_A",
+              "linkText": "Export to plot.ly",
+              "showLink": false
+            }
+          });
+
+          $(document).on("click", "#day1Button", function () {
+            Plotly.relayout(gd, 'xaxis.range', [0, 679])
+          });
+          $(document).on("click", "#day2Button", function () {
+            Plotly.relayout(gd, 'xaxis.range', [680, 2188])
+          });
+          $(document).on("click", "#day3Button", function () {
+            Plotly.relayout(gd, 'xaxis.range', [2189, 3247])
+          });
+          $(document).on("click", "#day4Button", function () {
+            Plotly.relayout(gd, 'xaxis.range', [3248, 4296])
+          });
+
+        }());
+      </script>
     </div>
     <div class="mapContainer">
       <div id="cesiumContainer">
