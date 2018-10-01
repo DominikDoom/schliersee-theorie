@@ -124,6 +124,24 @@ h3 {
     padding: 0;
     overflow: hidden;
 }
+.cesium-infoBox {
+    width: 150px;
+    border: none;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    box-shadow: none;
+}
+.cesium-infoBox-title {
+    border-top-left-radius: 5px;
+}
+.cesium-timeline-icon16 {
+    height: 19px;
+    z-index: 1;
+}
+.cesium-timeline-needle {
+    top: 0;
+    width: 2px;
+}
 
 #debug {
     z-index: 1;

@@ -79,16 +79,34 @@
           });
 
           $(document).on("click", "#day1Button", function () {
-            Plotly.relayout(gd, 'xaxis.range', [0, 679])
+            if ($(this).hasClass("selected")) {
+              Plotly.relayout(gd, 'xaxis.range', [0, 4296]);
+              console.log("deselected");
+              
+            } else {
+              Plotly.relayout(gd, 'xaxis.range', [0, 679]);
+            }
           });
           $(document).on("click", "#day2Button", function () {
-            Plotly.relayout(gd, 'xaxis.range', [680, 2188])
+            if ($(this).hasClass("selected")) {
+              Plotly.relayout(gd, 'xaxis.range', [0, 4296]);
+            } else {
+              Plotly.relayout(gd, 'xaxis.range', [680, 2188])
+            }
           });
           $(document).on("click", "#day3Button", function () {
-            Plotly.relayout(gd, 'xaxis.range', [2189, 3247])
+            if ($(this).hasClass("selected")) {
+              Plotly.relayout(gd, 'xaxis.range', [0, 4296]);
+            } else {
+              Plotly.relayout(gd, 'xaxis.range', [2189, 3247])
+            }
           });
           $(document).on("click", "#day4Button", function () {
-            Plotly.relayout(gd, 'xaxis.range', [3248, 4296])
+            if ($(this).hasClass("selected")) {
+              Plotly.relayout(gd, 'xaxis.range', [0, 4296]);
+            } else {
+              Plotly.relayout(gd, 'xaxis.range', [3248, 4296])
+            }
           });
 
         }());
