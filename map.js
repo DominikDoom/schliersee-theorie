@@ -21,7 +21,9 @@ viewer.scene.globe.enableLighting = true;
 
 viewer.animation.viewModel.dateFormatter = localeDateTimeFormatter;
 viewer.animation.viewModel.timeFormatter = localeTimeFormatter;
-viewer.timeline.makeLabel = function(time) { return localeDateTimeFormatter(time); }
+viewer.timeline.makeLabel = function (time) {
+    return localeDateTimeFormatter(time);
+}
 
 var TZcode = 'CEST';
 var UTCoffset = new Date();
@@ -46,6 +48,7 @@ function localeDateTimeFormatter(datetime, viewModel, ignoredate) {
     }
     return objDT + Cesium.sprintf("%02d:%02d " + TZcode, gregorianDT.hour, gregorianDT.minute);
 }
+
 function localeTimeFormatter(time, viewModel) {
     return localeDateTimeFormatter(time, viewModel, true);
 }
@@ -77,10 +80,10 @@ $(document).on("click", "#day1Button", function () {
         $("#day3Button").removeClass("selected");
         $("#day4Button").removeClass("selected");
         viewer.dataSources.removeAll();
-        viewer.dataSources.add(data_day1).then(function(dataSource){
+        viewer.dataSources.add(data_day1).then(function (dataSource) {
             viewer.clock.shouldAnimate = false;
             var rider = dataSource.entities.getById('tour');
-            viewer.flyTo(rider).then(function(){
+            viewer.flyTo(rider).then(function () {
                 viewer.trackedEntity = rider;
                 viewer.selectedEntity = viewer.trackedEntity;
                 viewer.clock.multiplier = 30;
@@ -100,10 +103,10 @@ $(document).on("click", "#day2Button", function () {
         $("#day4Button").removeClass("selected");
         viewer.dataSources.removeAll();
         viewer.dataSources.add(data_day1);
-        viewer.dataSources.add(data_day2).then(function(dataSource){
+        viewer.dataSources.add(data_day2).then(function (dataSource) {
             viewer.clock.shouldAnimate = false;
             var rider = dataSource.entities.getById('tour');
-            viewer.flyTo(rider).then(function(){
+            viewer.flyTo(rider).then(function () {
                 viewer.trackedEntity = rider;
                 viewer.selectedEntity = viewer.trackedEntity;
                 viewer.clock.multiplier = 30;
@@ -124,10 +127,10 @@ $(document).on("click", "#day3Button", function () {
         viewer.dataSources.removeAll();
         viewer.dataSources.add(data_day1);
         viewer.dataSources.add(data_day2);
-        viewer.dataSources.add(data_day3).then(function(dataSource){
+        viewer.dataSources.add(data_day3).then(function (dataSource) {
             viewer.clock.shouldAnimate = false;
             var rider = dataSource.entities.getById('tour');
-            viewer.flyTo(rider).then(function(){
+            viewer.flyTo(rider).then(function () {
                 viewer.trackedEntity = rider;
                 viewer.selectedEntity = viewer.trackedEntity;
                 viewer.clock.multiplier = 30;
@@ -149,10 +152,10 @@ $(document).on("click", "#day4Button", function () {
         viewer.dataSources.add(data_day1);
         viewer.dataSources.add(data_day2);
         viewer.dataSources.add(data_day3);
-        viewer.dataSources.add(data_day4).then(function(dataSource){
+        viewer.dataSources.add(data_day4).then(function (dataSource) {
             viewer.clock.shouldAnimate = false;
             var rider = dataSource.entities.getById('tour');
-            viewer.flyTo(rider).then(function(){
+            viewer.flyTo(rider).then(function () {
                 viewer.trackedEntity = rider;
                 viewer.selectedEntity = viewer.trackedEntity;
                 viewer.clock.multiplier = 30;
@@ -179,7 +182,13 @@ $.getJSON("./data/camera/start.json", function (data) {
 });
 
 
-// Extract current camera view (Debug)
+/* 
+#################
+#     DEBUG     #
+#################
+*/
+
+// Extract current camera view
 $(document).on("click", "#saveCam", function () {
 
     var camera = viewer.camera;
@@ -192,3 +201,32 @@ $(document).on("click", "#saveCam", function () {
 
     download(JSON.stringify(store, undefined, 4), "camera.json", "json");
 });
+
+// Extract Click position
+viewer.canvas.addEventListener('click', function (e) {
+
+    var check = $("#exportClickCoords").is(":checked");
+    if (check) {
+        var mousePosition = new Cesium.Cartesian2(e.clientX, e.clientY);
+
+        var ellipsoid = viewer.scene.globe.ellipsoid;
+        var cartesian = viewer.camera.pickEllipsoid(mousePosition, ellipsoid);
+        if (cartesian) {
+            var cartographic = ellipsoid.cartesianToCartographic(cartesian);
+            var longitudeString = Cesium.Math.toDegrees(cartographic.longitude);
+            var latitudeString = Cesium.Math.toDegrees(cartographic.latitude);
+
+            var store = {
+                lat: latitudeString,
+                lon: longitudeString
+            };
+            var name = prompt("Please enter the image names for this position.\nFormat: DayX_LocationName_X-Y\ne.g.: 'Tag1_Ruine_5322-5316'", "");
+            if (name == null || name == "") {} else {
+                download(JSON.stringify(store, undefined, 4), name + ".json", "json");
+            }
+
+        } else {
+            alert('Invalid Click Position');
+        }
+    }
+}, false);

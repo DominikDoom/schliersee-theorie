@@ -149,6 +149,9 @@ h3 {
     top: 30px;
     left: 30px;
 }
+#exportClickCoords {
+    transform: scale(1.6) translateY(2px);
+}
 
 /* Hacky Stuff */
 .modebar-btn {

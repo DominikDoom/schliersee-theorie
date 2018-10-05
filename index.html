@@ -82,7 +82,7 @@
             if ($(this).hasClass("selected")) {
               Plotly.relayout(gd, 'xaxis.range', [0, 4296]);
               console.log("deselected");
-              
+
             } else {
               Plotly.relayout(gd, 'xaxis.range', [0, 679]);
             }
@@ -116,6 +116,8 @@
       <div id="cesiumContainer">
         <div id="debug">
           <button id="saveCam">Extract current camera position</button>
+          <input type="checkbox" id="exportClickCoords">
+          <label for="exportClickCoords" style="color:white">← Save Img. Pos. on Click?</label>
         </div>
       </div>
     </div>
