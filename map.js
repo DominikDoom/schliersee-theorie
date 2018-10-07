@@ -87,7 +87,7 @@ $(document).on("click", "#day1Button", function () {
                 viewer.trackedEntity = rider;
                 viewer.selectedEntity = viewer.trackedEntity;
                 viewer.clock.multiplier = 30;
-                viewer.clock.shouldAnimate = true;
+                viewer.clock.shouldAnimate = false;
             });
         });
     } else {
@@ -110,7 +110,7 @@ $(document).on("click", "#day2Button", function () {
                 viewer.trackedEntity = rider;
                 viewer.selectedEntity = viewer.trackedEntity;
                 viewer.clock.multiplier = 30;
-                viewer.clock.shouldAnimate = true;
+                viewer.clock.shouldAnimate = false;
             });
         });;
     } else {
@@ -134,7 +134,7 @@ $(document).on("click", "#day3Button", function () {
                 viewer.trackedEntity = rider;
                 viewer.selectedEntity = viewer.trackedEntity;
                 viewer.clock.multiplier = 30;
-                viewer.clock.shouldAnimate = true;
+                viewer.clock.shouldAnimate = false;
             });
         });;
     } else {
@@ -159,7 +159,7 @@ $(document).on("click", "#day4Button", function () {
                 viewer.trackedEntity = rider;
                 viewer.selectedEntity = viewer.trackedEntity;
                 viewer.clock.multiplier = 30;
-                viewer.clock.shouldAnimate = true;
+                viewer.clock.shouldAnimate = false;
             });
         });;
     } else {
@@ -220,7 +220,7 @@ viewer.canvas.addEventListener('click', function (e) {
                 lat: latitudeString,
                 lon: longitudeString
             };
-            var name = prompt("Please enter the image names for this position.\nFormat: DayX_LocationName_X-Y\ne.g.: 'Tag1_Ruine_5322-5316'", "");
+            var name = prompt("Please enter the image names for this position.\nFormat: DayX_X-Y_LocationName\ne.g.: 'Tag1_5322-5316_Ruine'", "");
             if (name == null || name == "") {} else {
                 download(JSON.stringify(store, undefined, 4), name + ".json", "json");
             }
