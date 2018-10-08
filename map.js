@@ -55,6 +55,8 @@ function localeTimeFormatter(time, viewModel) {
 
 // Data Setup
 
+var currentDataSource = "";
+
 // Load all sources
 var data_day1 = Cesium.KmlDataSource.load('./data/kml/16.08.2018.kml', {
     camera: viewer.scene.camera,
@@ -81,6 +83,7 @@ $(document).on("click", "#day1Button", function () {
         $("#day4Button").removeClass("selected");
         viewer.dataSources.removeAll();
         viewer.dataSources.add(data_day1).then(function (dataSource) {
+            currentDataSource = dataSource;
             viewer.clock.shouldAnimate = false;
             var rider = dataSource.entities.getById('tour');
             viewer.flyTo(rider).then(function () {
@@ -93,6 +96,7 @@ $(document).on("click", "#day1Button", function () {
     } else {
         $(this).removeClass("selected");
         viewer.dataSources.removeAll();
+        currentDataSource = "";
     }
 });
 $(document).on("click", "#day2Button", function () {
@@ -104,6 +108,7 @@ $(document).on("click", "#day2Button", function () {
         viewer.dataSources.removeAll();
         viewer.dataSources.add(data_day1);
         viewer.dataSources.add(data_day2).then(function (dataSource) {
+            currentDataSource = dataSource;
             viewer.clock.shouldAnimate = false;
             var rider = dataSource.entities.getById('tour');
             viewer.flyTo(rider).then(function () {
@@ -116,6 +121,7 @@ $(document).on("click", "#day2Button", function () {
     } else {
         $(this).removeClass("selected");
         viewer.dataSources.removeAll();
+        currentDataSource = "";
     }
 });
 $(document).on("click", "#day3Button", function () {
@@ -128,6 +134,7 @@ $(document).on("click", "#day3Button", function () {
         viewer.dataSources.add(data_day1);
         viewer.dataSources.add(data_day2);
         viewer.dataSources.add(data_day3).then(function (dataSource) {
+            currentDataSource = dataSource;
             viewer.clock.shouldAnimate = false;
             var rider = dataSource.entities.getById('tour');
             viewer.flyTo(rider).then(function () {
@@ -140,6 +147,7 @@ $(document).on("click", "#day3Button", function () {
     } else {
         $(this).removeClass("selected");
         viewer.dataSources.removeAll();
+        currentDataSource = "";
     }
 });
 $(document).on("click", "#day4Button", function () {
@@ -153,6 +161,7 @@ $(document).on("click", "#day4Button", function () {
         viewer.dataSources.add(data_day2);
         viewer.dataSources.add(data_day3);
         viewer.dataSources.add(data_day4).then(function (dataSource) {
+            currentDataSource = dataSource;
             viewer.clock.shouldAnimate = false;
             var rider = dataSource.entities.getById('tour');
             viewer.flyTo(rider).then(function () {
@@ -165,6 +174,7 @@ $(document).on("click", "#day4Button", function () {
     } else {
         $(this).removeClass("selected");
         viewer.dataSources.removeAll();
+        currentDataSource = "";
     }
 });
 
@@ -202,31 +212,33 @@ $(document).on("click", "#saveCam", function () {
     download(JSON.stringify(store, undefined, 4), "camera.json", "json");
 });
 
-// Extract Click position
-viewer.canvas.addEventListener('click', function (e) {
-
-    var check = $("#exportClickCoords").is(":checked");
-    if (check) {
-        var mousePosition = new Cesium.Cartesian2(e.clientX, e.clientY);
-
-        var ellipsoid = viewer.scene.globe.ellipsoid;
-        var cartesian = viewer.camera.pickEllipsoid(mousePosition, ellipsoid);
-        if (cartesian) {
-            var cartographic = ellipsoid.cartesianToCartographic(cartesian);
-            var longitudeString = Cesium.Math.toDegrees(cartographic.longitude);
-            var latitudeString = Cesium.Math.toDegrees(cartographic.latitude);
-
-            var store = {
-                lat: latitudeString,
-                lon: longitudeString
-            };
-            var name = prompt("Please enter the image names for this position.\nFormat: DayX_X-Y_LocationName\ne.g.: 'Tag1_5322-5316_Ruine'", "");
-            if (name == null || name == "") {} else {
-                download(JSON.stringify(store, undefined, 4), name + ".json", "json");
-            }
-
-        } else {
-            alert('Invalid Click Position');
-        }
+function getMarkerCoords() {
+    if (currentDataSource !== "") {
+        var rider = currentDataSource.entities.getById('tour');
+        var pos = rider.position.getValue(viewer.clock.currentTime);
+        var cart = Cesium.Cartographic.fromCartesian(pos);
+        var longitudeString = Cesium.Math.toDegrees(cart.longitude);
+        var latitudeString = Cesium.Math.toDegrees(cart.latitude);
+        var altitudeString = cart.height;
+        $("#saveMarkerPos").attr("data-lat", latitudeString);
+        $("#saveMarkerPos").attr("data-lon", longitudeString);
+        $("#saveMarkerPos").attr("data-alt", altitudeString);
     }
-}, false);
+}
+getMarkerCoords(); // Update once immediately...
+setInterval(getMarkerCoords, 100); // ...and then again every 3000ms
+
+
+//Extract Click position
+$(document).on("click", "#saveMarkerPos", function () {
+    var store = {
+        lat: $("#saveMarkerPos").attr("data-lat"),
+        lon: $("#saveMarkerPos").attr("data-lon"),
+        alt: $("#saveMarkerPos").attr("data-alt")
+    };
+    var name = prompt("Please enter the image names for this position.\nFormat: DayX_X-Y_LocationName\ne.g.: 'Tag1_5322-5316_Ruine'", "");
+    if (name == null || name == "") {} else {
+        download(JSON.stringify(store, undefined, 4), name + ".json", "json");
+    }
+
+});
