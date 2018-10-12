@@ -22,8 +22,7 @@ var figure = {
             "side": "left"
         }, 
         "showlegend": true, 
-        "height": 300, 
-        "width": 500, 
+        "height": 300,
         "xaxis": {
             "showspikes": true, 
 			"spikemode": "across",

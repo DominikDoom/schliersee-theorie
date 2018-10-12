@@ -3,7 +3,8 @@ html,
 .main,
 .parallax {
     height: 100%;
-    min-width: 800px;
+    max-width: 100%;
+    min-width: 300px;
     font: 400 15px/1.8 "Lato", sans-serif;
     text-align: center;
     background: #fff;
@@ -58,14 +59,6 @@ h3 {
     color: #000;
 }
 
-.caption span.title {
-    color: #fff;
-    text-shadow: 0px 0px 10px rgba(100, 100, 100, 1);
-    padding: 18px;
-    font-size: 48px;
-    letter-spacing: 10px;
-}
-
 .caption span.subtitle {
     color: #fff;
     text-shadow: 0px 0px 10px rgba(100, 100, 100, 1);
@@ -74,11 +67,13 @@ h3 {
     letter-spacing: 4px;
 }
 
-.generalInfo .caption, .mapWarning .caption {
+.generalInfo .caption,
+.mapWarning .caption {
     top: 30px;
 }
 
-.generalInfo span.subtitle, .mapWarning span.subtitle {
+.generalInfo span.subtitle,
+.mapWarning span.subtitle {
     color: black;
     text-shadow: none;
     letter-spacing: 1px;
@@ -86,21 +81,30 @@ h3 {
 
 .generalInfo {
     position: relative;
-    width: 100%;
-    height: 100%;
-    min-height: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
+    min-width: 300px;
+    min-height: 100%;
+    max-height: 5000px;
     border-bottom: solid 5px #d4d4d4;
     border-top: solid 3px #d4d4d4;
 }
 
-/* Grid Layout */
-.grid-container {
-    display: grid;
-    height: 100%;
-    grid-template-columns: 500px 1fr;
-    grid-template-rows: 1fr 300px;
-    grid-gap: 1px 1px;
-    grid-template-areas: "mapNav mapContainer""mapSlcInfo mapContainer";
+.generalInfo.textBlock {
+    flex-direction: column;
+    min-width: 300px;
+    max-width: 40%;
+    min-height: 500px;
+    overflow: auto;
+    margin: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    padding: 85px;
+
+    border-top: solid 4px #d4d4d4;
+    border-bottom: none;
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.4);
 }
 
 .mapNav {
@@ -120,20 +124,13 @@ h3 {
     height: 40px;
     background-color: rgb(228, 228, 228)
 }
+
 .mapNav-navButton {
     display: flex;
     width: 100%;
     justify-content: center;
     flex-direction: column;
     cursor: pointer;
-}
-
-.mapSlcInfo {
-    grid-area: mapSlcInfo;
-}
-
-.mapContainer {
-    grid-area: mapContainer;
 }
 
 #cesiumContainer {
@@ -144,6 +141,7 @@ h3 {
     padding: 0;
     overflow: hidden;
 }
+
 .cesium-infoBox {
     width: 150px;
     border: none;
@@ -151,13 +149,16 @@ h3 {
     border-bottom-left-radius: 8px;
     box-shadow: none;
 }
+
 .cesium-infoBox-title {
     border-top-left-radius: 5px;
 }
+
 .cesium-timeline-icon16 {
     height: 19px;
     z-index: 1;
 }
+
 .cesium-timeline-needle {
     top: 0;
     width: 2px;
@@ -169,6 +170,7 @@ h3 {
     top: 30px;
     left: 30px;
 }
+
 #exportClickCoords {
     transform: scale(1.6) translateY(2px);
 }
@@ -176,4 +178,66 @@ h3 {
 /* Hacky Stuff */
 .modebar-btn {
     display: none;
+}
+
+@media only screen and (min-width:31.25em) {
+
+    /* Desktop */
+    .caption span.title {
+        color: #fff;
+        text-shadow: 0px 0px 10px rgba(100, 100, 100, 1);
+        padding: 18px;
+        font-size: 48px;
+        letter-spacing: 10px;
+    }
+
+    /* Grid Layout */
+    .grid-container {
+        display: grid;
+        height: 100%;
+        grid-template-columns: 500px 1fr;
+        grid-template-rows: 1fr 300px;
+        grid-gap: 1px 1px;
+        grid-template-areas: "mapNav mapContainer""mapSlcInfo mapContainer";
+    }
+
+    .mapSlcInfo {
+        grid-area: mapSlcInfo;
+    }
+
+    .mapContainer {
+        grid-area: mapContainer;
+    }
+}
+
+@media only screen and (max-width:31.25em) {
+
+    /* Mobile */
+    .caption span.title {
+        color: #fff;
+        text-shadow: 0px 0px 10px rgba(100, 100, 100, 1);
+        padding: 18px;
+        font-size: 30px;
+        letter-spacing: 10px;
+    }
+
+    /* Grid Layout */
+    .grid-container {
+        display: grid;
+        height: 100%;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 300px 100%;
+        grid-gap: 1px 1px;
+        grid-template-areas: "mapNav"
+            "mapSlcInfo"
+            "mapContainer";
+    }
+
+    .mapSlcInfo {
+        grid-area: mapSlcInfo;
+    }
+
+    .mapContainer {
+        grid-area: mapContainer;
+    }
 }
