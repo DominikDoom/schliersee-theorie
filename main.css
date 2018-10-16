@@ -164,6 +164,59 @@ h3 {
     width: 2px;
 }
 
+.imageViewerOverlay {
+    background-color: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+}
+.imageViewer {
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 20px;
+    background-color: #fff;
+    border-top: solid 20px #d4d4d4;
+    border-bottom: none;
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+#imageViewer-closeButton {
+    cursor: pointer;
+    position: absolute;
+    top: -20px;
+    right: 0px;
+    width: 30px;
+    height: 20px;
+    line-height: 17px;
+    font-size: 18px;
+    text-align: center;
+    color: #fff;
+    background-color: #bd4545
+}
+.imageSidebar {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 100%;
+    overflow-y: scroll;
+}
+.imageContent {
+    width: 100%;
+    height: 100%;
+    margin-left: 10px;
+    border: solid 1px #d4d4d4;
+}
 #debug {
     z-index: 1;
     position: absolute;
