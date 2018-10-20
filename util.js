@@ -63,3 +63,28 @@ $(document).ready(function () {
 	});
 
 });
+
+// Image Viewer Stuff
+
+// Load JSON file containing image names for a specific location
+function loadImages(day, filename) {
+	fetch("/img/" + day +"/"+ filename)
+	.then(response => response.json())
+	  .then(jsonResponse => parseImageList(day, jsonResponse));
+}
+// Add an element to the thumbnail sidebar for each image in the JSON array
+function parseImageList(day,jsonObj) {
+	var sb = $(".imageSidebar");
+	sb.empty();
+	$.each(jsonObj['images'], function(index, element) {
+		sb.append("<img class='thumbnail' src='./img/"+day+"/thumbs/"+element+"' data-path='./img/"+day+"/"+element+"'>");
+	});
+}
+
+$(document).on("click",".thumbnail",function () {
+	var ct = $(".imageContent");
+	var path = $(this).attr("data-path");
+	ct.css("background-image","url("+path+")");
+	ct.empty();
+	ct.append("<a class='orgLink' href='"+path+"' target='_blank'>Original anzeigen</a>");
+});
