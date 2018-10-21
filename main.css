@@ -207,9 +207,10 @@ h3 {
 .imageSidebar {
     display: flex;
     flex-direction: column;
-    width: 230px;
+    width: 250px;
     height: 100%;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 .thumbnail {
     cursor: pointer;
