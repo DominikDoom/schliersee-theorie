@@ -68,7 +68,7 @@ $(document).ready(function () {
 
 // Load JSON file containing image names for a specific location
 function loadImages(day, filename) {
-	fetch("/img/" + day +"/"+ filename)
+	fetch("./img/" + day +"/"+ filename)
 	.then(response => response.json())
 	  .then(jsonResponse => parseImageList(day, jsonResponse));
 }
