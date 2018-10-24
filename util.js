@@ -77,14 +77,15 @@ function parseImageList(day,jsonObj) {
 	var sb = $(".imageSidebar");
 	sb.empty();
 	$.each(jsonObj['images'], function(index, element) {
-		sb.append("<img class='thumbnail' src='./img/"+day+"/thumbs/"+element+"' data-path='./img/"+day+"/"+element+"'>");
+		sb.append("<img class='thumbnail' src='./img/"+day+"/thumbs/"+element+"' data-preview='./img/"+day+"/preview/"+element+"' data-path='./img/"+day+"/"+element+"'>");
 	});
 }
 
 $(document).on("click",".thumbnail",function () {
 	var ct = $(".imageContent");
 	var path = $(this).attr("data-path");
-	ct.css("background-image","url("+path+")");
+	var previewpath = $(this).attr("data-preview");
+	ct.css("background-image","url("+previewpath+")");
 	ct.empty();
 	ct.append("<a class='orgLink' href='"+path+"' target='_blank'>Original anzeigen</a>");
 });
