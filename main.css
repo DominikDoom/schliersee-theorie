@@ -165,6 +165,7 @@ h3 {
 }
 
 .imageViewerOverlay {
+    display: none;
     background-color: rgba(0, 0, 0, 0.8);
     position: fixed;
     top: 0;

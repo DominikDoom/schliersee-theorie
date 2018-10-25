@@ -76,6 +76,32 @@ var data_day4 = Cesium.KmlDataSource.load('./data/kml/19.08.2018.kml', {
     canvas: viewer.scene.canvas
 });
 
+viewer.screenSpaceEventHandler.setInputAction(function onLeftClick(movement) {
+    var pickedObject = viewer.scene.pick(movement.position);
+    if (Cesium.defined(pickedObject) && (pickedObject.name === "camIcon")) {
+        $(".imageViewerOverlay").css("display","block");
+    }
+}, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+function addImageEntities(day, jsonObj) {
+    $.each(jsonObj[day],function(index, element) {
+        fetch("./img/"+day+"/"+element)
+        .then(response => response.json())
+            .then(jsonResponse => addImageEntity(jsonResponse));
+    });
+}
+function addImageEntity(jsonObj) {
+    var icon = "./img/util/cam.png";
+    viewer.entities.add({
+        name: "camIcon",
+        position : Cesium.Cartesian3.fromDegrees(jsonObj.lon, jsonObj.lat, jsonObj.alt),
+        billboard : {
+            image : icon,
+            translucencyByDistance : new Cesium.NearFarScalar(5000, 2.0, 15000, 0.1),
+            scaleByDistance : new Cesium.NearFarScalar(5000, 1.0, 15000, 0.2)
+        }
+    });
+}
 $(document).on("click", "#day1Button", function () {
     if (!$(this).hasClass("selected")) {
         $(this).addClass("selected");
@@ -94,10 +120,15 @@ $(document).on("click", "#day1Button", function () {
                 viewer.clock.shouldAnimate = false;
             });
         });
+        viewer.entities.removeAll();
+        fetch("./img/index.json")
+        .then(response => response.json())
+            .then(jsonResponse => addImageEntities("Tag1", jsonResponse));
     } else {
         $(this).removeClass("selected");
         viewer.dataSources.removeAll();
         currentDataSource = "";
+        viewer.entities.removeAll();
     }
 });
 $(document).on("click", "#day2Button", function () {
@@ -118,11 +149,19 @@ $(document).on("click", "#day2Button", function () {
                 viewer.clock.multiplier = 30;
                 viewer.clock.shouldAnimate = false;
             });
-        });;
+        });
+        viewer.entities.removeAll();
+        fetch("./img/index.json")
+        .then(response => response.json())
+            .then(jsonResponse => addImageEntities("Tag1", jsonResponse));
+        fetch("./img/index.json")
+        .then(response => response.json())
+            .then(jsonResponse => addImageEntities("Tag2", jsonResponse));
     } else {
         $(this).removeClass("selected");
         viewer.dataSources.removeAll();
         currentDataSource = "";
+        viewer.entities.removeAll();
     }
 });
 $(document).on("click", "#day3Button", function () {
@@ -144,11 +183,22 @@ $(document).on("click", "#day3Button", function () {
                 viewer.clock.multiplier = 30;
                 viewer.clock.shouldAnimate = false;
             });
-        });;
+        });
+        viewer.entities.removeAll();
+        fetch("./img/index.json")
+        .then(response => response.json())
+            .then(jsonResponse => addImageEntities("Tag1", jsonResponse));
+        fetch("./img/index.json")
+        .then(response => response.json())
+            .then(jsonResponse => addImageEntities("Tag2", jsonResponse));
+        fetch("./img/index.json")
+        .then(response => response.json())
+            .then(jsonResponse => addImageEntities("Tag3", jsonResponse));
     } else {
         $(this).removeClass("selected");
         viewer.dataSources.removeAll();
         currentDataSource = "";
+        viewer.entities.removeAll();
     }
 });
 $(document).on("click", "#day4Button", function () {
@@ -171,11 +221,25 @@ $(document).on("click", "#day4Button", function () {
                 viewer.clock.multiplier = 30;
                 viewer.clock.shouldAnimate = false;
             });
-        });;
+        });
+        viewer.entities.removeAll();
+        fetch("./img/index.json")
+        .then(response => response.json())
+            .then(jsonResponse => addImageEntities("Tag1", jsonResponse));
+        fetch("./img/index.json")
+        .then(response => response.json())
+            .then(jsonResponse => addImageEntities("Tag2", jsonResponse));
+        fetch("./img/index.json")
+        .then(response => response.json())
+            .then(jsonResponse => addImageEntities("Tag3", jsonResponse));
+        fetch("./img/index.json")
+        .then(response => response.json())
+            .then(jsonResponse => addImageEntities("Tag4", jsonResponse));
     } else {
         $(this).removeClass("selected");
         viewer.dataSources.removeAll();
         currentDataSource = "";
+        viewer.entities.removeAll();
     }
 });
 
