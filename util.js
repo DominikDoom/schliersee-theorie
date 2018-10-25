@@ -89,3 +89,16 @@ $(document).on("click",".thumbnail",function () {
 	ct.empty();
 	ct.append("<a class='orgLink' href='"+path+"' target='_blank'>Original anzeigen</a>");
 });
+
+$(document).on("click","#imageViewer-closeButton",function () {
+	$(".imageViewerOverlay").css("display","none");
+	$(".imageSidebar").empty();
+	$(".imageContent").empty();
+	$(".imageContent").css("background-image","none");
+	
+	// un-lock scroll position
+	var html = jQuery('html');
+	var scrollPosition = html.data('scroll-position');
+	html.css('overflow', html.data('previous-overflow'));
+	window.scrollTo(scrollPosition[0], scrollPosition[1])
+});

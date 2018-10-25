@@ -76,24 +76,47 @@ var data_day4 = Cesium.KmlDataSource.load('./data/kml/19.08.2018.kml', {
     canvas: viewer.scene.canvas
 });
 
-viewer.screenSpaceEventHandler.setInputAction(function onLeftClick(movement) {
+var handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+handler.setInputAction(function onLeftClick(movement) {
     var pickedObject = viewer.scene.pick(movement.position);
-    if (Cesium.defined(pickedObject) && (pickedObject.name === "camIcon")) {
-        $(".imageViewerOverlay").css("display","block");
+    if (Cesium.defined(pickedObject)) {
+        var id = pickedObject.id;
+        if (billboardIds.includes(id.id)) {
+            var day = (id.id).slice(0,4);        
+            fetch("./img/" + day +"/"+ id.id)
+            .then(response => response.json())
+                .then(jsonResponse => parseImageList(day,jsonResponse))
+            $(".imageViewerOverlay").css("display","block");
+
+            // lock scroll position, but retain settings for later
+            var scrollPosition = [
+                self.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft,
+                self.pageYOffset || document.documentElement.scrollTop  || document.body.scrollTop
+            ];
+            var html = jQuery('html'); // it would make more sense to apply this to body, but IE7 won't have that
+            html.data('scroll-position', scrollPosition);
+            html.data('previous-overflow', html.css('overflow'));
+            html.css('overflow', 'hidden');
+            window.scrollTo(scrollPosition[0], scrollPosition[1]);
+            
+            viewer.selectedEntity = currentDataSource.entities.getById('tour');;
+        }
     }
 }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
+var billboardIds = [];
 function addImageEntities(day, jsonObj) {
     $.each(jsonObj[day],function(index, element) {
         fetch("./img/"+day+"/"+element)
         .then(response => response.json())
-            .then(jsonResponse => addImageEntity(jsonResponse));
+            .then(jsonResponse => addImageEntity(jsonResponse,element));
     });
 }
-function addImageEntity(jsonObj) {
+function addImageEntity(jsonObj,id) {
     var icon = "./img/util/cam.png";
     viewer.entities.add({
         name: "camIcon",
+        id: id,
         position : Cesium.Cartesian3.fromDegrees(jsonObj.lon, jsonObj.lat, jsonObj.alt),
         billboard : {
             image : icon,
@@ -101,6 +124,7 @@ function addImageEntity(jsonObj) {
             scaleByDistance : new Cesium.NearFarScalar(5000, 1.0, 15000, 0.2)
         }
     });
+    billboardIds.push(id);
 }
 $(document).on("click", "#day1Button", function () {
     if (!$(this).hasClass("selected")) {
