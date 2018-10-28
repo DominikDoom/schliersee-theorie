@@ -133,6 +133,34 @@ h3 {
     cursor: pointer;
 }
 
+.mapNav-tourInfo {
+    overflow-y: scroll;
+    margin-top: 10px;
+}
+.infoTable {
+    width: 100%;
+    display: none;
+}
+.infoTable tr {
+    width: 100%;
+}
+.infoTable td {
+    width: 50%;
+}
+.infoTable.values {
+    font-size: 30px;
+    margin-bottom: -10px;
+}
+.infoTable .unit {
+    color: #566473;
+    font-size: 18px;
+}
+.infoTable.names {
+    color: #566473;
+    font-size: 14px;
+    line-height: normal;
+}
+
 #cesiumContainer {
     position: relative;
     width: 100%;
@@ -244,6 +272,7 @@ h3 {
     position: absolute;
     top: 30px;
     left: 30px;
+    display: none;
 }
 
 #exportClickCoords {

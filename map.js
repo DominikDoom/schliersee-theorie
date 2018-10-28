@@ -148,11 +148,14 @@ $(document).on("click", "#day1Button", function () {
         fetch("./img/index.json")
         .then(response => response.json())
             .then(jsonResponse => addImageEntities("Tag1", jsonResponse));
+
+        changeTourInfo("Tag1");
     } else {
         $(this).removeClass("selected");
         viewer.dataSources.removeAll();
         currentDataSource = "";
         viewer.entities.removeAll();
+        changeTourInfo("deselect");
     }
 });
 $(document).on("click", "#day2Button", function () {
@@ -181,11 +184,14 @@ $(document).on("click", "#day2Button", function () {
         fetch("./img/index.json")
         .then(response => response.json())
             .then(jsonResponse => addImageEntities("Tag2", jsonResponse));
+
+        changeTourInfo("Tag2");
     } else {
         $(this).removeClass("selected");
         viewer.dataSources.removeAll();
         currentDataSource = "";
         viewer.entities.removeAll();
+        changeTourInfo("deselect");
     }
 });
 $(document).on("click", "#day3Button", function () {
@@ -218,11 +224,14 @@ $(document).on("click", "#day3Button", function () {
         fetch("./img/index.json")
         .then(response => response.json())
             .then(jsonResponse => addImageEntities("Tag3", jsonResponse));
+
+        changeTourInfo("Tag3");
     } else {
         $(this).removeClass("selected");
         viewer.dataSources.removeAll();
         currentDataSource = "";
         viewer.entities.removeAll();
+        changeTourInfo("deselect");
     }
 });
 $(document).on("click", "#day4Button", function () {
@@ -259,11 +268,14 @@ $(document).on("click", "#day4Button", function () {
         fetch("./img/index.json")
         .then(response => response.json())
             .then(jsonResponse => addImageEntities("Tag4", jsonResponse));
+
+        changeTourInfo("Tag4");
     } else {
         $(this).removeClass("selected");
         viewer.dataSources.removeAll();
         currentDataSource = "";
         viewer.entities.removeAll();
+        changeTourInfo("deselect");
     }
 });
 
